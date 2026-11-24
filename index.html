@@ -305,16 +305,16 @@ footer{padding:34px 0 50px;text-align:center;color:var(--muted);font-size:13px}
 </div>
 
 <section id="monitor" style="padding-top:20px"><div class="wrap">
-  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Dos simulaciones de lo que construyo y opero: el monitoreo de fraude en banca y la facturación electrónica ante la DGII.</p></div>
-  <div class="tabs rv" role="tablist" aria-label="Simulaciones"><button role="tab" id="t-fraude" aria-controls="p-fraude" aria-selected="true">Antifraude</button><button role="tab" id="t-ecf" aria-controls="p-ecf" aria-selected="false" tabindex="-1">Facturación e-CF</button></div>
-  <div class="panel" id="p-fraude" role="tabpanel" aria-labelledby="t-fraude">
+  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Dos simulaciones de lo que construyo y opero: la facturación electrónica ante la DGII y el monitoreo de fraude en banca.</p></div>
+  <div class="tabs rv" role="tablist" aria-label="Simulaciones"><button role="tab" id="t-ecf" aria-controls="p-ecf" aria-selected="true">Facturación e-CF</button><button role="tab" id="t-fraude" aria-controls="p-fraude" aria-selected="false" tabindex="-1">Antifraude</button></div>
+  <div class="panel" id="p-fraude" role="tabpanel" aria-labelledby="t-fraude" hidden>
   <div class="mon rv" role="region" aria-label="Simulación de un monitor de transacciones">
     <div class="mon-top"><span class="live"><i></i>Monitor de transacciones</span><span class="mon-meta">Simulación · canal digital · <span id="clock">09:41:00</span></span></div>
     <div class="mon-wrap"><table class="tx"><thead><tr><th>Hora</th><th>Canal</th><th>Monto</th><th>Resultado</th></tr></thead><tbody id="txb" aria-live="polite"></tbody></table></div>
     <div class="why" id="why"><div><p><strong>Operación detenida.</strong> Monto 34 veces mayor que el promedio del cliente, hacia un beneficiario nuevo y desde un dispositivo no registrado. Pasa a validación antes de procesarse. Detectar esto a tiempo es lo que hago.</p></div></div>
   </div>
   </div>
-  <div class="panel" id="p-ecf" role="tabpanel" aria-labelledby="t-ecf" hidden>
+  <div class="panel" id="p-ecf" role="tabpanel" aria-labelledby="t-ecf">
   <div class="mon" role="region" aria-label="Simulación de emisión de comprobantes fiscales electrónicos">
     <div class="mon-top"><span class="live"><i></i>Facturación electrónica e-CF</span><span class="mon-meta">Simulación · ambiente de pruebas</span></div>
     <div class="ecf-body">
@@ -497,9 +497,11 @@ document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)
 // pestañas Antifraude / e-CF
 (function(){const tabs=[...document.querySelectorAll('[role=tab]')];
  function sel(t){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on});
-  if(t.id==='t-ecf'&&!window.__ecfAuto){window.__ecfAuto=1;setTimeout(()=>document.getElementById('ecfEmit').click(),500)}}
+}
  tabs.forEach((t,i)=>{t.addEventListener('click',()=>sel(t));t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];sel(n);n.focus()}})});
 })();
+// la primera emisión arranca sola al llegar a la sección
+(function(){const io=new IntersectionObserver(e=>{if(e[0].isIntersecting){io.disconnect();setTimeout(()=>{const b=document.getElementById('ecfEmit');if(!b.disabled&&!document.getElementById('p-ecf').hidden)b.click()},500)}},{threshold:.35});io.observe(document.getElementById('p-ecf'))})();
 // emisión e-CF simulada
 (function(){const btn=document.getElementById('ecfEmit'),steps=[...document.querySelectorAll('#ecfSteps li')],bar=document.getElementById('ecfBar'),ok=document.getElementById('ecfOk'),ncfEl=document.getElementById('ecfNcf'),list=document.getElementById('ecfList');
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let seq=125;
