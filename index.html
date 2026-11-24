@@ -132,7 +132,7 @@ section{padding:70px 0}
 
 
 /* pestañas del trabajo diario */
-.tabs{display:inline-flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:18px}
+.tabs{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:6px;padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:18px}
 .tabs button{border:0;background:transparent;color:var(--muted);font:600 14.5px "IBM Plex Sans",sans-serif;padding:10px 18px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s}
 .tabs button[aria-selected=true]{background:var(--teal);color:#03201c}
 .panel[hidden]{display:none}
@@ -162,6 +162,35 @@ section{padding:70px 0}
 .ecf-ok p{margin:0;padding:14px 22px;background:rgba(45,212,191,.1);border-top:1px solid rgba(45,212,191,.3);color:#c8f5ec;font-size:14.5px}
 .ecf-ok strong{color:#fff}
 @media(max-width:760px){.ecf-body{grid-template-columns:1fr}.ecf-emit{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.ecf-ncf{font-size:18px}.ecf-row{padding:10px 14px;font-size:12px}}
+
+
+/* POS restaurante */
+.pos-body{display:grid;grid-template-columns:1fr 1fr}
+.pos-floor{padding:22px;border-right:1px solid rgba(255,255,255,.08)}
+.pos-floor h4,.pos-kds h4{margin:0 0 12px;font:500 13px "IBM Plex Sans",sans-serif;color:#8fa3bd}
+.tables{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tbl{aspect-ratio:1;border-radius:12px;display:grid;place-items:center;font:600 15px "IBM Plex Mono",monospace;background:#132238;border:1px solid #22344d;color:#8fa3bd;transition:background .35s,border-color .35s,color .35s;position:relative}
+.tbl.busy{background:rgba(59,130,246,.18);border-color:#3b82f6;color:#dbeafe}
+.tbl.order{background:rgba(245,177,76,.18);border-color:#f5b14c;color:#fde68a;animation:alarm2 1.2s ease-in-out infinite}
+.tbl.paid{background:rgba(45,212,191,.18);border-color:#2dd4bf;color:#ccfbf1}
+@keyframes alarm2{50%{box-shadow:0 0 0 6px rgba(245,177,76,.18)}}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;font-size:12.5px;color:#8fa3bd}
+.legend span:before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.pos-kds{padding:22px}
+.ticket{border:1px dashed #2f4560;border-radius:12px;padding:14px 16px;min-height:170px;font:13.5px "IBM Plex Mono",monospace}
+.ticket .th{display:flex;justify-content:space-between;color:#fff;font-weight:600;margin-bottom:10px}
+.ticket .th small{color:#8fa3bd;font-weight:400}
+.ticket ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.ticket li{display:flex;justify-content:space-between;gap:10px;color:#c9d6e6}
+.ticket li.in{animation:rowin .5s cubic-bezier(.2,.8,.2,1) both}
+.ticket li em{font-style:normal;font-size:12px;color:#f5b14c}
+.ticket li.ready em{color:#6ee7b7}
+.ticket .empty{color:#56687f}
+.pos-status{margin-top:14px;font-size:14px;color:#c9d6e6;min-height:22px}
+.pos-ok{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}.pos-ok.open{grid-template-rows:1fr}.pos-ok>div{overflow:hidden}
+.pos-ok p{margin:0;padding:14px 22px;background:rgba(45,212,191,.1);border-top:1px solid rgba(45,212,191,.3);color:#c8f5ec;font-size:14.5px}
+.pos-ok strong{color:#fff}
+@media(max-width:760px){.pos-body{grid-template-columns:1fr}.pos-floor{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.tbl{font-size:13px}}
 
 /* sobre mí */
 .about{display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
@@ -305,8 +334,8 @@ footer{padding:34px 0 50px;text-align:center;color:var(--muted);font-size:13px}
 </div>
 
 <section id="monitor" style="padding-top:20px"><div class="wrap">
-  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Dos simulaciones de lo que construyo y opero: la facturación electrónica ante la DGII y el monitoreo de fraude en banca.</p></div>
-  <div class="tabs rv" role="tablist" aria-label="Simulaciones"><button role="tab" id="t-ecf" aria-controls="p-ecf" aria-selected="true">Facturación e-CF</button><button role="tab" id="t-fraude" aria-controls="p-fraude" aria-selected="false" tabindex="-1">Antifraude</button></div>
+  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Tres simulaciones de lo que construyo y opero: la facturación electrónica ante la DGII, el monitoreo de fraude en banca y el punto de venta para restaurantes.</p></div>
+  <div class="tabs rv" role="tablist" aria-label="Simulaciones"><button role="tab" id="t-ecf" aria-controls="p-ecf" aria-selected="true">Facturación e-CF</button><button role="tab" id="t-fraude" aria-controls="p-fraude" aria-selected="false" tabindex="-1">Antifraude</button><button role="tab" id="t-pos" aria-controls="p-pos" aria-selected="false" tabindex="-1">POS restaurante</button></div>
   <div class="panel" id="p-fraude" role="tabpanel" aria-labelledby="t-fraude" hidden>
   <div class="mon rv" role="region" aria-label="Simulación de un monitor de transacciones">
     <div class="mon-top"><span class="live"><i></i>Monitor de transacciones</span><span class="mon-meta">Simulación · canal digital · <span id="clock">09:41:00</span></span></div>
@@ -339,6 +368,23 @@ footer{padding:34px 0 50px;text-align:center;color:var(--muted);font-size:13px}
       </div></div>
     </div>
     <div class="ecf-ok" id="ecfOk"><div><p><strong>E310000000125 aceptado por la DGII.</strong> Código de seguridad <span id="ecfCode">K7Q2PX</span>. La representación impresa sale con su código QR y el estado queda consultable en línea.</p></div></div>
+  </div>
+  </div>
+<div class="panel" id="p-pos" role="tabpanel" aria-labelledby="t-pos" hidden>
+  <div class="mon" role="region" aria-label="Simulación de punto de venta para restaurante">
+    <div class="mon-top"><span class="live"><i></i>POS restaurante</span><span class="mon-meta">Simulación · salón y cocina</span></div>
+    <div class="pos-body">
+      <div class="pos-floor"><h4>Plano del salón</h4>
+        <div class="tables" id="posTables"></div>
+        <div class="legend"><span style="--c:#22344d">Libre</span><span style="--c:#3b82f6">Ocupada</span><span style="--c:#f5b14c">Pedido nuevo</span><span style="--c:#2dd4bf">Cobrada</span></div>
+      </div>
+      <div class="pos-kds"><h4>Pantalla de cocina</h4>
+        <div class="ticket" id="posTicket"><span class="empty">Sin comandas pendientes.</span></div>
+        <div class="pos-status" id="posStatus" aria-live="polite"></div>
+        <button class="emit" id="posRun" type="button" style="margin-top:10px">Simular pedido por QR</button>
+      </div>
+    </div>
+    <div class="pos-ok" id="posOk"><div><p><strong>Mesa 6 cobrada.</strong> Factura de consumo electrónica <span id="posNcf">E320000004588</span> aceptada por la DGII, con su código QR en el recibo.</p></div></div>
   </div>
   </div>
 </div></section>
@@ -517,6 +563,26 @@ document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)
     const r=document.createElement('div');r.className='ecf-row'+(reduce?'':' in');r.innerHTML=`<span>${ncf}</span><span class="st ac">Aceptado</span>`;list.prepend(r);if(list.children.length>6)list.lastElementChild.remove();
     seq++;btn.textContent='Emitir otro e-CF';btn.disabled=false}})();
  });
+})();
+
+
+// POS restaurante simulado
+(function(){const T=document.getElementById('posTables'),tk=document.getElementById('posTicket'),st=document.getElementById('posStatus'),btn=document.getElementById('posRun'),ok=document.getElementById('posOk');
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,busy=[2,5];let n=4588,auto=false;
+ T.innerHTML=[1,2,3,4,5,6,7,8].map(i=>`<div class="tbl${busy.includes(i)?' busy':''}" id="tbl${i}" role="img" aria-label="Mesa ${i}">${i}</div>`).join('');
+ const items=[["2 × Mofongo","Cocina"],["1 × Tostones","Cocina"],["2 × Morir soñando","Bar"]];
+ const wait=ms=>new Promise(r=>setTimeout(r,reduce?60:ms));
+ async function run(){btn.disabled=true;ok.classList.remove('open');const m=document.getElementById('tbl6');m.className='tbl';tk.innerHTML='<span class="empty">Sin comandas pendientes.</span>';
+  await wait(400);m.className='tbl order';st.textContent='Mesa 6 pidió desde el menú QR.';
+  await wait(1100);tk.innerHTML='<div class="th">Mesa 6 <small>Comanda #'+(n-4400)+'</small></div><ul></ul>';const ul=tk.querySelector('ul');
+  for(const it of items){await wait(450);const li=document.createElement('li');if(!reduce)li.className='in';li.innerHTML=`<span>${it[0]}</span><em>${it[1]} · en preparación</em>`;ul.append(li)}
+  m.className='tbl busy';st.textContent='Comanda enviada a cocina y bar.';
+  for(const li of ul.children){await wait(700);li.classList.add('ready');li.querySelector('em').textContent=li.querySelector('em').textContent.replace('en preparación','listo')}
+  st.textContent='Pedido servido. Cobrando…';await wait(900);
+  m.className='tbl paid';const ncf='E32'+String(n).padStart(10,'0');document.getElementById('posNcf').textContent=ncf;ok.classList.add('open');st.textContent='Cobrado con factura de consumo electrónica.';
+  n++;btn.textContent='Simular otro pedido';btn.disabled=false}
+ btn.addEventListener('click',run);
+ document.getElementById('t-pos').addEventListener('click',()=>{if(!auto){auto=true;setTimeout(run,400)}});
 })();
 
 // menú activo
