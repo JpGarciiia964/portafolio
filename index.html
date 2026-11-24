@@ -130,6 +130,39 @@ section{padding:70px 0}
 @media(max-width:600px){.tx{min-width:0;font-size:12px}.tx th:first-child,.tx td:first-child{display:none}.tx th,.tx td{padding:10px 8px}.tx{font-size:11.5px}.rev{padding:6px 8px;font-size:12px}.mon-top{flex-direction:column;align-items:flex-start}}
 @media(max-width:420px){.tx td{white-space:normal;padding:9px 6px}.tx td:nth-child(3){white-space:nowrap}.tx th{padding:9px 6px}.rev{padding:5px 7px;font-size:11px}.ok:before{content:"\25CF "}}
 
+
+/* pestañas del trabajo diario */
+.tabs{display:inline-flex;gap:6px;padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:18px}
+.tabs button{border:0;background:transparent;color:var(--muted);font:600 14.5px "IBM Plex Sans",sans-serif;padding:10px 18px;border-radius:10px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button[aria-selected=true]{background:var(--teal);color:#03201c}
+.panel[hidden]{display:none}
+/* e-CF */
+.ecf-body{display:grid;grid-template-columns:1.05fr .95fr}
+.ecf-emit{padding:22px;border-right:1px solid rgba(255,255,255,.08)}
+.ecf-doc{font:500 13px "IBM Plex Mono",monospace;color:#8fa3bd;margin-bottom:4px}
+.ecf-ncf{font:600 22px "IBM Plex Mono",monospace;color:#fff;letter-spacing:.02em}
+.ecf-amt{color:#c9d6e6;font-size:14px;margin:4px 0 18px}
+.steps{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:10px}
+.steps li{display:flex;align-items:center;gap:12px;color:#6f8299;font-size:14.5px;transition:color .3s}
+.steps li b{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:2px solid #2a3b52;font:600 12px "IBM Plex Mono",monospace;transition:.3s}
+.steps li.run{color:#f5b14c}.steps li.run b{border-color:#f5b14c;animation:ping 1.2s infinite;box-shadow:0 0 0 0 #f5b14c}
+.steps li.done{color:#e7eef8}.steps li.done b{background:#2dd4bf;border-color:#2dd4bf;color:#03201c}
+.steps small{margin-left:auto;white-space:nowrap;font:12px "IBM Plex Mono",monospace;color:#8fa3bd}
+.ecf-bar{height:6px;border-radius:9px;background:#1b2a3f;overflow:hidden;margin-bottom:18px}
+.ecf-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2dd4bf,#3b82f6);transition:width .6s ease}
+.emit{font:700 14px "IBM Plex Sans",sans-serif;background:#2dd4bf;color:#03201c;border:0;border-radius:10px;padding:11px 18px;cursor:pointer}
+.emit:disabled{opacity:.55;cursor:default}
+.ecf-list{padding:8px 0}
+.ecf-list h4{margin:10px 22px 6px;font:500 13px "IBM Plex Sans",sans-serif;color:#8fa3bd}
+.ecf-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 22px;border-bottom:1px solid rgba(255,255,255,.06);font:13.5px "IBM Plex Mono",monospace}
+.ecf-row.in{animation:rowin .55s cubic-bezier(.2,.8,.2,1) both}
+.st{font:600 12px "IBM Plex Sans",sans-serif;padding:3px 10px;border-radius:99px}
+.st.ac{background:rgba(52,211,153,.14);color:#6ee7b7}.st.co{background:rgba(245,177,76,.16);color:#fcd34d}.st.pr{background:rgba(59,130,246,.18);color:#93c5fd}
+.ecf-ok{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}.ecf-ok.open{grid-template-rows:1fr}.ecf-ok>div{overflow:hidden}
+.ecf-ok p{margin:0;padding:14px 22px;background:rgba(45,212,191,.1);border-top:1px solid rgba(45,212,191,.3);color:#c8f5ec;font-size:14.5px}
+.ecf-ok strong{color:#fff}
+@media(max-width:760px){.ecf-body{grid-template-columns:1fr}.ecf-emit{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}.ecf-ncf{font-size:18px}.ecf-row{padding:10px 14px;font-size:12px}}
+
 /* sobre mí */
 .about{display:grid;grid-template-columns:1.3fr 1fr;gap:26px}
 @media(max-width:860px){.about{grid-template-columns:1fr}}
@@ -193,7 +226,7 @@ section{padding:70px 0}
 .pj .chips{padding:0}
 
 /* certificaciones */
-.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:14px}
 .ct{display:flex;gap:16px;align-items:center;padding:18px 20px}
 .ct .yr{flex:none;width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font:700 15px "IBM Plex Mono";background:linear-gradient(135deg,color-mix(in srgb,var(--teal) 22%,transparent),color-mix(in srgb,var(--blue) 22%,transparent));color:var(--txt)}
 .ct b{display:block;line-height:1.35}
@@ -272,13 +305,44 @@ footer{padding:34px 0 50px;text-align:center;color:var(--muted);font-size:13px}
 </div>
 
 <section id="monitor" style="padding-top:20px"><div class="wrap">
-  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Una simulación de un monitor de transacciones. Cuando aparezca la operación marcada, revísala.</p></div>
+  <div class="head rv"><h2>Así se ve mi trabajo diario</h2><p>Dos simulaciones de lo que construyo y opero: el monitoreo de fraude en banca y la facturación electrónica ante la DGII.</p></div>
+  <div class="tabs rv" role="tablist" aria-label="Simulaciones"><button role="tab" id="t-fraude" aria-controls="p-fraude" aria-selected="true">Antifraude</button><button role="tab" id="t-ecf" aria-controls="p-ecf" aria-selected="false" tabindex="-1">Facturación e-CF</button></div>
+  <div class="panel" id="p-fraude" role="tabpanel" aria-labelledby="t-fraude">
   <div class="mon rv" role="region" aria-label="Simulación de un monitor de transacciones">
     <div class="mon-top"><span class="live"><i></i>Monitor de transacciones</span><span class="mon-meta">Simulación · canal digital · <span id="clock">09:41:00</span></span></div>
     <div class="mon-wrap"><table class="tx"><thead><tr><th>Hora</th><th>Canal</th><th>Monto</th><th>Resultado</th></tr></thead><tbody id="txb" aria-live="polite"></tbody></table></div>
     <div class="why" id="why"><div><p><strong>Operación detenida.</strong> Monto 34 veces mayor que el promedio del cliente, hacia un beneficiario nuevo y desde un dispositivo no registrado. Pasa a validación antes de procesarse. Detectar esto a tiempo es lo que hago.</p></div></div>
   </div>
+  </div>
+  <div class="panel" id="p-ecf" role="tabpanel" aria-labelledby="t-ecf" hidden>
+  <div class="mon" role="region" aria-label="Simulación de emisión de comprobantes fiscales electrónicos">
+    <div class="mon-top"><span class="live"><i></i>Facturación electrónica e-CF</span><span class="mon-meta">Simulación · ambiente de pruebas</span></div>
+    <div class="ecf-body">
+      <div class="ecf-emit">
+        <div class="ecf-doc">Factura de crédito fiscal · e-NCF</div>
+        <div class="ecf-ncf" id="ecfNcf">E310000000125</div>
+        <div class="ecf-amt">Total RD$ 118,000.00 · ITBIS RD$ 18,000.00</div>
+        <ol class="steps" id="ecfSteps">
+          <li><b>1</b>Comprobante generado<small></small></li>
+          <li><b>2</b>XML firmado con certificado digital<small></small></li>
+          <li><b>3</b>Enviado a la DGII<small></small></li>
+          <li><b>4</b>Aceptado por la DGII<small></small></li>
+        </ol>
+        <div class="ecf-bar"><i id="ecfBar"></i></div>
+        <button class="emit" id="ecfEmit" type="button">Emitir e-CF de prueba</button>
+      </div>
+      <div class="ecf-list"><h4>Comprobantes recientes</h4><div id="ecfList">
+        <div class="ecf-row"><span>E320000004587</span><span class="st ac">Aceptado</span></div>
+        <div class="ecf-row"><span>E340000000019</span><span class="st co">Condicional</span></div>
+        <div class="ecf-row"><span>E310000000124</span><span class="st pr">En proceso</span></div>
+        <div class="ecf-row"><span>E440000000007</span><span class="st ac">Aceptado</span></div>
+      </div></div>
+    </div>
+    <div class="ecf-ok" id="ecfOk"><div><p><strong>E310000000125 aceptado por la DGII.</strong> Código de seguridad <span id="ecfCode">K7Q2PX</span>. La representación impresa sale con su código QR y el estado queda consultable en línea.</p></div></div>
+  </div>
+  </div>
 </div></section>
+
 
 <section id="sobre"><div class="wrap">
   <div class="head rv"><h2>Código, datos y negocio en el mismo idioma</h2></div>
@@ -427,6 +491,30 @@ document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)
  }
  const mio=new IntersectionObserver(e=>{if(e[0].isIntersecting&&!started){started=true;add();timer=setInterval(add,reduce?60:1100);mio.disconnect()}},{threshold:.3});
  mio.observe(document.querySelector('.mon'));
+})();
+
+
+// pestañas Antifraude / e-CF
+(function(){const tabs=[...document.querySelectorAll('[role=tab]')];
+ function sel(t){tabs.forEach(x=>{const on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute('aria-controls')).hidden=!on});
+  if(t.id==='t-ecf'&&!window.__ecfAuto){window.__ecfAuto=1;setTimeout(()=>document.getElementById('ecfEmit').click(),500)}}
+ tabs.forEach((t,i)=>{t.addEventListener('click',()=>sel(t));t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){const n=tabs[(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length];sel(n);n.focus()}})});
+})();
+// emisión e-CF simulada
+(function(){const btn=document.getElementById('ecfEmit'),steps=[...document.querySelectorAll('#ecfSteps li')],bar=document.getElementById('ecfBar'),ok=document.getElementById('ecfOk'),ncfEl=document.getElementById('ecfNcf'),list=document.getElementById('ecfList');
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;let seq=125;
+ const times=['0.2 s','0.4 s','1.1 s','2.3 s'];
+ const code=()=>Array.from({length:6},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[Math.random()*32|0]).join('');
+ btn.addEventListener('click',()=>{btn.disabled=true;ok.classList.remove('open');const ncf='E31'+String(seq).padStart(10,'0');ncfEl.textContent=ncf;
+  steps.forEach(li=>{li.className='';li.querySelector('small').textContent=''});bar.style.width='0';
+  let k=0;const d=reduce?80:850;
+  (function next(){if(k>0){steps[k-1].className='done';steps[k-1].querySelector('small').textContent=times[k-1]}
+   bar.style.width=(k/steps.length*100)+'%';
+   if(k<steps.length){steps[k].className='run';k++;setTimeout(next,d)}
+   else{document.getElementById('ecfCode').textContent=code();ok.querySelector('strong').textContent=ncf+' aceptado por la DGII.';ok.classList.add('open');
+    const r=document.createElement('div');r.className='ecf-row'+(reduce?'':' in');r.innerHTML=`<span>${ncf}</span><span class="st ac">Aceptado</span>`;list.prepend(r);if(list.children.length>6)list.lastElementChild.remove();
+    seq++;btn.textContent='Emitir otro e-CF';btn.disabled=false}})();
+ });
 })();
 
 // menú activo
